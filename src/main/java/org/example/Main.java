@@ -1,17 +1,27 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import com.bookingsystem.payment.service.PaymentContext;
+import com.bookingsystem.payment.strategy.PayPalPayment;
+import com.bookingsystem.payment.strategy.VisaPayment;
+import com.bookingsystem.payment.strategy.WalletPayment;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+public class Main {
+
+    public static void main(String[] args) {
+
+        PaymentContext payment = new PaymentContext();
+
+        payment.setStrategy(new VisaPayment("1111-2222-3333"));
+        payment.executePayment(250);
+
+        System.out.println();
+
+        payment.setStrategy(new PayPalPayment("student@mail.com"));
+        payment.executePayment(120);
+
+        System.out.println();
+
+        payment.setStrategy(new WalletPayment(300));
+        payment.executePayment(100);
     }
 }
