@@ -1,17 +1,70 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import com.bookingsystem.notification.controller.NotificationController;
+import com.bookingsystem.notification.observer.NotificationManager;
+import com.bookingsystem.notification.observer.UserObserver;
+import com.bookingsystem.notification.service.NotificationService;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+import com.bookingsystem.review.controller.ReviewController;
+import com.bookingsystem.review.service.ReviewService;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // =========================
+        // NOTIFICATION MODULE
+        // =========================
+        System.out.println("\n########################################");
+        System.out.println("        NOTIFICATION SYSTEM");
+        System.out.println("########################################\n");
+
+        NotificationManager manager = new NotificationManager();
+
+        UserObserver user1 = new UserObserver("Malak");
+        UserObserver user2 = new UserObserver("Guest");
+
+        manager.subscribe(user1);
+        manager.subscribe(user2);
+
+        NotificationService notificationService =
+                new NotificationService(manager);
+
+        NotificationController notificationController =
+                new NotificationController(notificationService);
+
+        System.out.println(">>> Sending Booking Notification...\n");
+        notificationController.bookingSuccess();
+
+
+        // =========================
+        // REVIEW MODULE
+        // =========================
+        System.out.println("\n########################################");
+        System.out.println("              REVIEW SYSTEM");
+        System.out.println("########################################\n");
+
+        ReviewService reviewService = new ReviewService();
+
+        ReviewController reviewController =
+                new ReviewController(reviewService);
+
+        System.out.println(">>> Adding Reviews...\n");
+
+        reviewController.submitReview(
+                "Malak",
+                5,
+                "Excellent Event!"
+        );
+
+        reviewController.submitReview(
+                "Guest",
+                4,
+                "Very Good Experience"
+        );
+
+        System.out.println("\n########################################");
+        System.out.println("            END OF OUTPUT");
+        System.out.println("########################################\n");
     }
 }
