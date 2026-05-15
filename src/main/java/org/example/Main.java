@@ -13,8 +13,7 @@ import com.bookingsystem.payment.strategy.PayPalPayment;
 import com.bookingsystem.payment.strategy.VisaPayment;
 import com.bookingsystem.payment.strategy.WalletPayment;
 
-import com.bookingsystem.booking.builder.TicketBuilder;
-import com.bookingsystem.booking.model.Booking;
+
 
 
 
@@ -99,23 +98,6 @@ public class Main {
 
 
 
-                // =========================
-                // BOOKING MODULE
-                // =========================
-
-
-
-                var ticket = new TicketBuilder()
-                        .setSeatNumber("A12")
-                        .setType("VIP")
-                        .setPrice(300)
-                        .setEventName("Music Concert")
-                        .build();
-
-                Booking booking = new Booking();
-                booking.addTicket(ticket);
-
-                booking.showBooking();
         }
 }
 

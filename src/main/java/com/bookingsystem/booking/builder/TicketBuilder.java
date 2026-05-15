@@ -1,34 +1,50 @@
 package com.bookingsystem.booking.builder;
+
 import com.bookingsystem.booking.model.Ticket;
+import com.bookingsystem.shared.enums.TicketType;
 
-public class TicketBuilder {
+import java.time.LocalDateTime;
+import java.util.List;
 
-    private String seatNumber;
-    private String type;
-    private double price;
-    private String eventName;
 
-    public TicketBuilder setSeatNumber(String seatNumber) {
-        this.seatNumber = seatNumber;
-        return this;
-    }
+public interface TicketBuilder {
 
-    public TicketBuilder setType(String type) {
-        this.type = type;
-        return this;
-    }
 
-    public TicketBuilder setPrice(double price) {
-        this.price = price;
-        return this;
-    }
+    TicketBuilder setTicketId(String ticketId);
 
-    public TicketBuilder setEventName(String eventName) {
-        this.eventName = eventName;
-        return this;
-    }
 
-    public Ticket build() {
-        return new Ticket(seatNumber, type, price, eventName);
-    }
+    TicketBuilder setBookingId(String bookingId);
+
+
+    TicketBuilder setEventId(String eventId);
+
+
+    TicketBuilder setUserId(String userId);
+
+
+    TicketBuilder setSeatNumber(String seatNumber);
+
+
+    TicketBuilder setTicketType(TicketType ticketType);
+
+
+    TicketBuilder setBasePrice(double basePrice);
+
+
+    TicketBuilder setBookingDate(LocalDateTime bookingDate);
+
+
+    TicketBuilder addExtra(String extra);
+
+
+    TicketBuilder addExtras(List<String> extras);
+
+
+    TicketBuilder setNotes(String notes);
+
+
+    TicketBuilder reset();
+
+
+    Ticket build();
 }
