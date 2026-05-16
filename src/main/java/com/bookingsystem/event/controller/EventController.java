@@ -15,7 +15,7 @@ import java.util.Optional;
  * الـ Controller بيستقبل الطلبات ويبعتها للـ Service
  * (في JavaFX هيتربط بالـ FXML, في API هيبقى REST Controller)
  */
-public class EventController {
+public class  EventController {
 
     private final EventService eventService;
 
