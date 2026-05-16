@@ -1,7 +1,6 @@
 package com.bookingsystem.notification.observer;
 
 import com.bookingsystem.notification.model.Notification;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +10,11 @@ public class NotificationManager {
 
     private List<Observer> observers = new ArrayList<>();
 
-    public NotificationManager() {}
+    private NotificationManager() {} // 👈 خليه private
 
     public static NotificationManager getInstance() {
         if (instance == null) {
-            instance = NotificationManager.getInstance();
+            instance = new NotificationManager(); // ✅ الصح
         }
         return instance;
     }

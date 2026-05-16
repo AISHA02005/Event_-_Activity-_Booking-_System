@@ -29,7 +29,7 @@ public class Main {
                 System.out.println("        NOTIFICATION SYSTEM");
                 System.out.println("########################################\n");
 
-                NotificationManager manager = new NotificationManager();
+                NotificationManager manager =  NotificationManager .getInstance();
 
                 UserObserver user1 = new UserObserver("Malak");
                 UserObserver user2 = new UserObserver("Guest");
