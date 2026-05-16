@@ -12,6 +12,7 @@ import com.bookingsystem.payment.service.PaymentContext;
 import com.bookingsystem.payment.strategy.PayPalPayment;
 import com.bookingsystem.payment.strategy.VisaPayment;
 import com.bookingsystem.payment.strategy.WalletPayment;
+import com.bookingsystem.facade.BookingFacade;
 
 
 
@@ -94,6 +95,10 @@ public class Main {
 
                 payment.setStrategy(new WalletPayment(300));
                 payment.executePayment(100);
+
+                BookingFacade facade = new BookingFacade();
+                facade.fullBookingProcess("Visa");
+                System.out.println("Application Finished!");
 
 
 
