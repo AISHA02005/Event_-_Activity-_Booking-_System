@@ -10,6 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.example.SceneManager;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class NotificationControllerFX {
 
     // ── FXML fields ─────────────────────────────────────────────────────────
@@ -26,10 +30,12 @@ public class NotificationControllerFX {
     // ── Backend ──────────────────────────────────────────────────────────────
     private final NotificationManager notificationManager = NotificationManager.getInstance();
     private final NotificationService notificationService =
-            new NotificationService(
-                    NotificationManager.getInstance()
-            );
+            new NotificationService(notificationManager);
+
     private final ObservableList<String> notificationItems = FXCollections.observableArrayList();
+
+    // لمنع التكرار
+    private final Set<String> displayedNotifications = new HashSet<>();
 
     // ── Lifecycle ────────────────────────────────────────────────────────────
     @FXML
@@ -41,17 +47,28 @@ public class NotificationControllerFX {
     // ── Subscribe ────────────────────────────────────────────────────────────
     @FXML
     private void handleSubscribe() {
-        String idText  = subscribeUserIdField.getText().trim();
-        String name    = subscribeUserNameField.getText().trim();
+        String idText = subscribeUserIdField.getText().trim();
+        String name = subscribeUserNameField.getText().trim();
+
         if (idText.isEmpty() || name.isEmpty()) {
             subscribeStatusLabel.setText("❌ Fill in User ID and Name.");
             return;
         }
+
         try {
             int userId = Integer.parseInt(idText);
+
             UserObserver observer = new UserObserver(name);
             notificationManager.subscribe(observer);
-            subscribeStatusLabel.setText("✅ User '" + name + "' (ID:" + userId + ") subscribed.");
+
+            subscribeStatusLabel.setText(
+                    "✅ User '" + name + "' (ID: " + userId + ") subscribed."
+            );
+
+            // تنظيف الحقول
+            subscribeUserIdField.clear();
+            subscribeUserNameField.clear();
+
         } catch (NumberFormatException e) {
             subscribeStatusLabel.setText("❌ User ID must be a number.");
         } catch (Exception e) {
@@ -63,16 +80,23 @@ public class NotificationControllerFX {
     @FXML
     private void handleSend() {
         String message = sendMessageField.getText().trim();
+
         if (message.isEmpty()) {
             sendStatusLabel.setText("❌ Message cannot be empty.");
             return;
         }
+
         try {
             notificationService.sendNotification(message);
-            sendStatusLabel.setText("✅ Notification sent: \"" + message + "\"");
-            // Add to local display list
-            notificationItems.add(0, "🔔 " + message);
-            listStatusLabel.setText("Notifications: " + notificationItems.size());
+
+            sendStatusLabel.setText("✅ Notification sent!");
+
+            // عرضها في الليست
+            addNotificationToList(message);
+
+            // تنظيف الحقل
+            sendMessageField.clear();
+
         } catch (Exception e) {
             sendStatusLabel.setText("❌ " + e.getMessage());
         }
@@ -82,28 +106,43 @@ public class NotificationControllerFX {
     @FXML
     private void handleShowNotifications() {
         try {
-            java.util.List<Notification> notifications =
+            List<Notification> notifications =
                     notificationService.getAllNotifications();
 
             if (notifications != null && !notifications.isEmpty()) {
                 for (Notification n : notifications) {
-                    if (!notificationItems.contains("🔔 " + n)) {
-                        notificationItems.add("🔔 " + n);
-                    }
+                    addNotificationToList(n.toString());
                 }
             }
+
             listStatusLabel.setText("Notifications: " + notificationItems.size());
+
         } catch (Exception e) {
-            listStatusLabel.setText("Error loading notifications: " + e.getMessage());
+            listStatusLabel.setText("❌ Error: " + e.getMessage());
         }
     }
 
+    // ── Helper (منع التكرار + تنسيق العرض) ──────────────────────────────────
+    private void addNotificationToList(String message) {
+        if (message == null || message.isEmpty()) return;
+
+        if (!displayedNotifications.contains(message)) {
+            displayedNotifications.add(message);
+            notificationItems.add(0, "🔔 " + message);
+        }
+    }
+
+    // ── Clear list ───────────────────────────────────────────────────────────
     @FXML
     private void handleClearList() {
         notificationItems.clear();
+        displayedNotifications.clear();
         listStatusLabel.setText("Cleared.");
     }
 
     // ── Navigation ───────────────────────────────────────────────────────────
-    @FXML private void goHome() { SceneManager.getInstance().showHome(); }
+    @FXML
+    private void goHome() {
+        SceneManager.getInstance().showHome();
+    }
 }

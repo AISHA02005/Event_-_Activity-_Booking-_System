@@ -24,7 +24,7 @@ public class BookingFacade {
         eventService = new EventService();
         bookingService = new BookingService();
         paymentContext = new PaymentContext();
-        notificationService = new NotificationService(new NotificationManager());
+        notificationService = new NotificationService( NotificationManager.getInstance());
     }
 
     private void validatePaymentMethod(String method) {
