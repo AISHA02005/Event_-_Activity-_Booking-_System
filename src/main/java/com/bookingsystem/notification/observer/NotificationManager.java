@@ -7,7 +7,18 @@ import java.util.List;
 
 public class NotificationManager {
 
+    private static NotificationManager instance;
+
     private List<Observer> observers = new ArrayList<>();
+
+    public NotificationManager() {}
+
+    public static NotificationManager getInstance() {
+        if (instance == null) {
+            instance = NotificationManager.getInstance();
+        }
+        return instance;
+    }
 
     public void subscribe(Observer observer) {
         observers.add(observer);
@@ -18,7 +29,6 @@ public class NotificationManager {
     }
 
     public void notifyUsers(Notification notification) {
-
         for (Observer observer : observers) {
             observer.update(notification);
         }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.NotificationControllerFX"
+            styleClass="root-pane">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="top-bar">
+            <padding><Insets top="12" right="20" bottom="12" left="20"/></padding>
+            <Button text="⬅ Home" onAction="#goHome" styleClass="nav-btn"/>
+            <Label text="🔔  Notifications" styleClass="screen-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox spacing="20">
+                <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+                <!-- Subscribe -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="Subscribe a User" styleClass="card-heading"/>
+                    <GridPane hgap="12" vgap="10">
+                        <Label text="User ID:"   GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label"/>
+                        <TextField fx:id="subscribeUserIdField"   promptText="e.g. 1"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="140"/>
+
+                        <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label"/>
+                        <TextField fx:id="subscribeUserNameField" promptText="e.g. Alice"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="140"/>
+                    </GridPane>
+                    <Button text="📧  Subscribe" onAction="#handleSubscribe" styleClass="secondary-btn"/>
+                    <Label fx:id="subscribeStatusLabel" styleClass="status-label"/>
+                </VBox>
+
+                <!-- Send notification -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="Send Notification (broadcast to all subscribers)" styleClass="card-heading"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="sendMessageField" promptText="Notification message…"
+                                   HBox.hgrow="ALWAYS"/>
+                        <Button text="📢  Send" onAction="#handleSend" styleClass="primary-btn"/>
+                    </HBox>
+                    <Label fx:id="sendStatusLabel" styleClass="status-label"/>
+                </VBox>
+
+                <!-- Notification list -->
+                <VBox styleClass="card" spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Received Notifications" styleClass="card-heading" HBox.hgrow="ALWAYS"/>
+                        <Button text="🔄 Refresh" onAction="#handleShowNotifications" styleClass="outline-btn"/>
+                        <Button text="🗑 Clear"   onAction="#handleClearList"          styleClass="danger-btn"/>
+                    </HBox>
+                    <Label fx:id="listStatusLabel" styleClass="status-label"/>
+                    <ListView fx:id="notificationsListView" prefHeight="220"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

@@ -4,6 +4,7 @@ import com.bookingsystem.booking.model.Booking;
 import com.bookingsystem.booking.service.BookingService;
 import com.bookingsystem.shared.enums.BookingStatus;
 import com.bookingsystem.shared.enums.TicketType;
+import org.example.controllers.SessionState;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,7 +70,10 @@ public class BookingController {
 
     public Booking cancelBooking(String bookingId, String reason) {
         try {
-            return bookingService.cancelBooking(bookingId, reason);
+            return bookingService.cancelBooking(
+                    SessionState.getInstance().getLastBookingId(),
+                    "Cancelled by user"
+            );
         } catch (Exception e) {
             System.err.println("⚠️  [BookingController] Cancel failed: " + e.getMessage());
             return null;
@@ -143,7 +147,9 @@ public class BookingController {
 
 
     public List<String> getAvailableSeats(String eventId, List<String> allSeats) {
-        return bookingService.getAvailableSeats(eventId, allSeats);
+        return bookingService.getAvailableSeats(
+                SessionState.getInstance().getSelectedEventId()
+        );
     }
 
 

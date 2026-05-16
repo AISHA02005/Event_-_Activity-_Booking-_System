@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.SearchControllerFX"
+            styleClass="root-pane">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="top-bar">
+            <padding><Insets top="12" right="20" bottom="12" left="20"/></padding>
+            <Button text="⬅ Home" onAction="#goHome" styleClass="nav-btn"/>
+            <Label text="🔍  Search Events" styleClass="screen-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="16">
+            <padding><Insets top="20" right="24" bottom="16" left="24"/></padding>
+
+            <!-- Search bar -->
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="search-bar">
+                <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+                <TextField fx:id="searchField" promptText="Search by title, location, description…"
+                           HBox.hgrow="ALWAYS"/>
+                <Label text="Type:" styleClass="form-label"/>
+                <ComboBox fx:id="typeFilterCombo" prefWidth="150"/>
+                <Button text="🔍  Search" onAction="#handleSearch"     styleClass="primary-btn"/>
+                <Button text="✕ Clear"    onAction="#handleClearSearch" styleClass="outline-btn"/>
+            </HBox>
+
+            <Label fx:id="searchStatusLabel" styleClass="status-label"/>
+
+            <!-- Results table -->
+            <TableView fx:id="searchResultsTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colSrId"       text="ID"       prefWidth="55"/>
+                    <TableColumn fx:id="colSrTitle"     text="Title"    prefWidth="200"/>
+                    <TableColumn fx:id="colSrType"      text="Type"     prefWidth="100"/>
+                    <TableColumn fx:id="colSrLocation"  text="Location" prefWidth="130"/>
+                    <TableColumn fx:id="colSrDate"      text="Date"     prefWidth="160"/>
+                    <TableColumn fx:id="colSrSeats"     text="Seats"    prefWidth="70"/>
+                    <TableColumn fx:id="colSrStatus"    text="Status"   prefWidth="100"/>
+                </columns>
+            </TableView>
+
+            <HBox alignment="CENTER_RIGHT">
+                <Button text="📋  Book Selected Event" onAction="#handleBookSelected"
+                        styleClass="primary-btn"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

@@ -9,11 +9,12 @@ import java.util.stream.Collectors;
 public class BookingRepository {
 
 
-    private final Map<String, Booking> bookings = new HashMap<>();
+    private static final Map<String, Booking> bookings = new HashMap<>();
 
 
 
-    private final Map<String, Set<String>> bookedSeats = new HashMap<>();
+    private static final Map<String, Set<String>> bookedSeats =
+            new HashMap<>();
 
     // ---- CRUD operations ----
 
@@ -72,7 +73,12 @@ public class BookingRepository {
 
 
 
-    public List<String> getAvailableSeats(String eventId, List<String> allSeats) {
+    public List<String> getAvailableSeats(String eventId) {
+
+        List<String> allSeats = List.of(
+                "A1", "A2", "A3",
+                "B1", "B2", "B3"
+        );
         return allSeats.stream()
                 .filter(seat -> !isSeatTaken(eventId, seat))
                 .collect(Collectors.toList());

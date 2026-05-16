@@ -2,6 +2,7 @@ package com.bookingsystem.review.controller;
 
 import com.bookingsystem.review.model.Review;
 import com.bookingsystem.review.service.ReviewService;
+import org.example.controllers.SessionState;
 
 public class ReviewController {
 
@@ -19,10 +20,12 @@ public class ReviewController {
             String comment
     ) {
 
-        Review review =
-                new Review(userName, rating, comment);
-
-        service.addReview(review);
+        service.addReview(
+                SessionState.getInstance().getCurrentUserId(),
+                SessionState.getInstance().getSelectedEventId(),
+                rating,
+                comment
+        );
 
         System.out.println("Review Added Successfully");
     }

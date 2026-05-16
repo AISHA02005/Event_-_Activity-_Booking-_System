@@ -2,19 +2,35 @@ package com.bookingsystem.review.model;
 
 public class Review {
 
-    private String userName;
+    private String reviewId;
+    private String userId;
+    private String eventId;
     private int rating;
     private String comment;
 
-    public Review(String userName, int rating, String comment) {
+    public Review(String reviewId,
+                  String userId,
+                  String eventId,
+                  int rating,
+                  String comment) {
 
-        this.userName = userName;
+        this.reviewId = reviewId;
+        this.userId = userId;
+        this.eventId = eventId;
         this.rating = rating;
         this.comment = comment;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getReviewId() {
+        return reviewId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getEventId() {
+        return eventId;
     }
 
     public int getRating() {

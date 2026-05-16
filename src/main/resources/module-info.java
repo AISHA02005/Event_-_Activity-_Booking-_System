@@ -1,19 +1,21 @@
-module event.booking.system {
-    // JavaFX modules
+module org.example {
+
+    // ── JavaFX ────────────────────────────────────────────────────
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.graphics;   // اختياري لكن مفيد
+    requires javafx.graphics;
+    requires javafx.base;
 
-    // Open packages for FXML (مهم جداً)
-    opens com.bookingsystem to javafx.fxml, javafx.graphics;
+    // ── Backend modules ───────────────────────────────────────────
+    // Adjust 'requires' names to match whatever module-info your
+    // backend declares (or use --add-modules / unnamed module path).
+    requires com.bookingsystem;
 
-    opens com.bookingsystem.auth.controller to javafx.fxml;
-    opens com.bookingsystem.event.controller to javafx.fxml;
-    opens com.bookingsystem.booking.controller to javafx.fxml;
-    opens com.bookingsystem.payment.controller to javafx.fxml;
-    opens com.bookingsystem.notification.controller to javafx.fxml;
-    opens com.bookingsystem.review.controller to javafx.fxml;
-    opens com.bookingsystem.search.controller to javafx.fxml;  // لو عملتي controller
-    opens com.bookingsystem.admin.controller to javafx.fxml;
-    opens com.bookingsystem.facade to javafx.fxml;
+    // ── Open packages to javafx.fxml for reflection ───────────────
+    opens org.example to javafx.fxml, javafx.graphics;
+    opens org.example.controllers to javafx.fxml;
+
+    // ── Export the main packages ──────────────────────────────────
+    exports org.example;
+    exports org.example.controllers;
 }

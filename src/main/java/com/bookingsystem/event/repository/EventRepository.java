@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class EventRepository {
 
     // eventId → Event
-    private final Map<String, Event> storage = new HashMap<>();
+    private static final Map<String, Event> storage = new HashMap<>();
 
     // ===== CRUD =====
 

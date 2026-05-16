@@ -44,8 +44,21 @@ public class EventController {
         }
     }
 
+    public List<Event> getAllEvents() {
+        return eventService.getAllEvents();
+    }
+
+    public List<Event> getEventsByType(EventType type) {
+        return eventService.getEventsByType(type);
+    }
+
+    public List<Event> getAvailableEvents() {
+        return eventService.getAvailableEvents();
+    }
+
     public void displayAllEvents() {
-        List<Event> events = eventService.getAllEvents();
+        List<Event> events =
+                eventService.getAllEvents();
         if (events.isEmpty()) {
             System.out.println("📭 No events found.");
         } else {
@@ -55,13 +68,15 @@ public class EventController {
     }
 
     public void displayEventsByType(EventType type) {
-        List<Event> events = eventService.getEventsByType(type);
+        List<Event> events =
+                eventService.getEventsByType(type);
         System.out.println("📂 " + type + " Events (" + events.size() + "):");
         events.forEach(e -> System.out.println("  • " + e));
     }
 
     public void displayAvailableEvents() {
-        List<Event> events = eventService.getAvailableEvents();
+        List<Event> events =
+                eventService.getAvailableEvents();
         System.out.println("✅ Available Events (" + events.size() + "):");
         events.forEach(e -> System.out.println("  • " + e));
     }
@@ -89,4 +104,6 @@ public class EventController {
     public boolean cancelEvent(String eventId) {
         return eventService.cancelEvent(eventId);
     }
+
+
 }

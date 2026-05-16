@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.HomeController"
+            styleClass="root-pane">
+
+    <!-- Top bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar">
+            <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+            <Label text="🎟  Event &amp; Activity Booking System" styleClass="app-title"/>
+        </HBox>
+    </top>
+
+    <!-- Main content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="content-scroll">
+            <VBox alignment="CENTER" spacing="30">
+                <padding><Insets top="40" right="60" bottom="40" left="60"/></padding>
+
+                <Label text="Welcome — choose a section" styleClass="section-title"/>
+
+                <GridPane hgap="20" vgap="20" alignment="CENTER">
+                    <!-- Row 0 -->
+                    <VBox styleClass="nav-card" onMouseClicked="#goEvents"
+                          GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="🎪" styleClass="card-icon"/>
+                        <Label text="Browse Events" styleClass="card-label"/>
+                        <Label text="View and filter all events" styleClass="card-sub"/>
+                    </VBox>
+
+                    <VBox styleClass="nav-card" onMouseClicked="#goBooking"
+                          GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="🪑" styleClass="card-icon"/>
+                        <Label text="Booking" styleClass="card-label"/>
+                        <Label text="Create, confirm, cancel bookings" styleClass="card-sub"/>
+                    </VBox>
+
+                    <VBox styleClass="nav-card" onMouseClicked="#goPayment"
+                          GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Label text="💳" styleClass="card-icon"/>
+                        <Label text="Payment" styleClass="card-label"/>
+                        <Label text="Visa, PayPal, Wallet" styleClass="card-sub"/>
+                    </VBox>
+
+                    <!-- Row 1 -->
+                    <VBox styleClass="nav-card" onMouseClicked="#goNotifications"
+                          GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="🔔" styleClass="card-icon"/>
+                        <Label text="Notifications" styleClass="card-label"/>
+                        <Label text="Subscribe and receive alerts" styleClass="card-sub"/>
+                    </VBox>
+
+                    <VBox styleClass="nav-card" onMouseClicked="#goReviews"
+                          GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="⭐" styleClass="card-icon"/>
+                        <Label text="Reviews" styleClass="card-label"/>
+                        <Label text="Rate and comment on events" styleClass="card-sub"/>
+                    </VBox>
+
+                    <VBox styleClass="nav-card" onMouseClicked="#goSearch"
+                          GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label text="🔍" styleClass="card-icon"/>
+                        <Label text="Search" styleClass="card-label"/>
+                        <Label text="Find events by keyword / type" styleClass="card-sub"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox alignment="CENTER" styleClass="footer-bar">
+            <padding><Insets top="10" bottom="10"/></padding>
+            <Label text="Design Patterns University Project  ·  JavaFX Frontend" styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+</BorderPane>

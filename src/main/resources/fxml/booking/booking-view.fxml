@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.BookingControllerFX"
+            styleClass="root-pane">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="top-bar">
+            <padding><Insets top="12" right="20" bottom="12" left="20"/></padding>
+            <Button text="⬅ Home" onAction="#goHome" styleClass="nav-btn"/>
+            <Label text="🪑  Booking" styleClass="screen-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox spacing="20">
+                <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+                <!-- ── Create Booking ────────────────────────────────────── -->
+                <VBox styleClass="card" spacing="14">
+                    <Label text="Create a New Booking" styleClass="card-heading"/>
+
+                    <GridPane hgap="14" vgap="10">
+                        <Label text="Event ID:"       GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label"/>
+                        <TextField fx:id="eventIdField" promptText="Event ID"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="160"/>
+
+                        <Label text="User ID:"        GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label"/>
+                        <TextField fx:id="userIdField"  promptText="User ID"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="160"/>
+
+                        <Label text="Seat Number:"    GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-label"/>
+                        <TextField fx:id="seatField"    promptText="e.g. 12"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="160"/>
+
+                        <Label text="Ticket Type:"    GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="form-label"/>
+                        <ComboBox fx:id="ticketTypeCombo"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="160"/>
+
+                        <Label text="Extras:"         GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="form-label"/>
+                        <ComboBox fx:id="extrasCombo"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="160"/>
+                    </GridPane>
+
+                    <HBox spacing="12">
+                        <Button text="✅  Create Booking" onAction="#handleCreateBooking" styleClass="primary-btn"/>
+                        <Button text="💳  Go to Payment"  onAction="#goPayment"            styleClass="secondary-btn"/>
+                    </HBox>
+                    <Label fx:id="bookingResultLabel" styleClass="result-label" wrapText="true"/>
+                </VBox>
+
+                <!-- ── Cancel / Confirm ──────────────────────────────────── -->
+                <HBox spacing="16">
+                    <VBox styleClass="card" spacing="10" HBox.hgrow="ALWAYS">
+                        <Label text="Cancel Booking" styleClass="card-heading"/>
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <TextField fx:id="cancelIdField" promptText="Booking ID" prefWidth="120"/>
+                            <Button text="❌  Cancel" onAction="#handleCancelBooking" styleClass="danger-btn"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox styleClass="card" spacing="10" HBox.hgrow="ALWAYS">
+                        <Label text="Confirm Booking" styleClass="card-heading"/>
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <TextField fx:id="confirmIdField" promptText="Booking ID" prefWidth="120"/>
+                            <Button text="✔  Confirm" onAction="#handleConfirmBooking" styleClass="success-btn"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- ── Seat Availability ─────────────────────────────────── -->
+                <VBox styleClass="card" spacing="10">
+                    <Label text="Seat Availability" styleClass="card-heading"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="seatCheckEventField" promptText="Event ID"  prefWidth="110"/>
+                        <TextField fx:id="seatCheckSeatField"  promptText="Seat No."  prefWidth="90"/>
+                        <Button text="Check Seat"       onAction="#handleCheckSeat"          styleClass="secondary-btn"/>
+                        <Button text="Show All Seats"   onAction="#handleShowAvailableSeats"  styleClass="outline-btn"/>
+                    </HBox>
+                    <Label fx:id="seatStatusLabel" styleClass="status-label"/>
+                    <TextArea fx:id="availableSeatsArea" prefHeight="60" editable="false" wrapText="true"/>
+                </VBox>
+
+                <!-- ── Booking History ───────────────────────────────────── -->
+                <VBox styleClass="card" spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Booking History" styleClass="card-heading" HBox.hgrow="ALWAYS"/>
+                        <Button text="🔄 Refresh" onAction="#loadAllBookings" styleClass="outline-btn"/>
+                    </HBox>
+                    <Label fx:id="statusLabel" styleClass="status-label"/>
+                    <TableView fx:id="bookingsTable" prefHeight="200">
+                        <columns>
+                            <TableColumn fx:id="colBookingId"     text="Booking ID" prefWidth="90"/>
+                            <TableColumn fx:id="colBookingEvent"  text="Event ID"   prefWidth="80"/>
+                            <TableColumn fx:id="colBookingUser"   text="User ID"    prefWidth="80"/>
+                            <TableColumn fx:id="colBookingStatus" text="Status"     prefWidth="120"/>
+                            <TableColumn fx:id="colBookingSeat"   text="Seat"       prefWidth="80"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

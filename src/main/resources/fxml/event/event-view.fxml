@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.EventControllerFX"
+            styleClass="root-pane">
+
+    <!-- Top bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="top-bar">
+            <padding><Insets top="12" right="20" bottom="12" left="20"/></padding>
+            <Button text="⬅ Home" onAction="#goHome" styleClass="nav-btn"/>
+            <Label text="🎪  Browse Events" styleClass="screen-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="12">
+            <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+
+            <!-- Filter bar -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Filter by Type:" styleClass="form-label"/>
+                <ComboBox fx:id="filterTypeCombo" prefWidth="160"/>
+                <Button text="Apply Filter" onAction="#applyFilter" styleClass="secondary-btn"/>
+                <Button text="Available Only" onAction="#showAvailableOnly" styleClass="secondary-btn"/>
+                <Button text="Reload All" onAction="#loadAllEvents" styleClass="outline-btn"/>
+                <Label fx:id="statusLabel" styleClass="status-label"/>
+            </HBox>
+
+            <!-- Table -->
+            <TableView fx:id="eventsTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId"          text="ID"           prefWidth="55"/>
+                    <TableColumn fx:id="colTitle"        text="Title"        prefWidth="180"/>
+                    <TableColumn fx:id="colType"         text="Type"         prefWidth="100"/>
+                    <TableColumn fx:id="colLocation"     text="Location"     prefWidth="130"/>
+                    <TableColumn fx:id="colDate"         text="Date"         prefWidth="160"/>
+                    <TableColumn fx:id="colSeats"        text="Avail. Seats" prefWidth="95"/>
+                    <TableColumn fx:id="colStatus"       text="Status"       prefWidth="100"/>
+                    <TableColumn fx:id="colVipPrice"     text="VIP Price"    prefWidth="85"/>
+                    <TableColumn fx:id="colNormalPrice"  text="Normal Price" prefWidth="95"/>
+                </columns>
+            </TableView>
+
+            <!-- Detail panel (hidden until row selected) -->
+            <HBox fx:id="detailsBox" spacing="20" styleClass="detail-box">
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label fx:id="detailTitle"       styleClass="detail-title"/>
+                    <Label fx:id="detailLocation"    styleClass="detail-meta"/>
+                    <Label fx:id="detailDescription" styleClass="detail-meta" wrapText="true"/>
+                    <Label fx:id="detailSeats"       styleClass="detail-meta"/>
+                </VBox>
+                <Button text="📋  Book This Event" onAction="#openBookingForSelected"
+                        styleClass="primary-btn" prefHeight="40"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

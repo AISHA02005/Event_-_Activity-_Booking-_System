@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.PaymentControllerFX"
+            styleClass="root-pane">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="top-bar">
+            <padding><Insets top="12" right="20" bottom="12" left="20"/></padding>
+            <Button text="⬅ Home"    onAction="#goHome"    styleClass="nav-btn"/>
+            <Button text="⬅ Booking" onAction="#goBooking" styleClass="nav-btn"/>
+            <Label text="💳  Payment" styleClass="screen-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="0">
+            <padding><Insets top="40" right="0" bottom="40" left="0"/></padding>
+
+            <VBox styleClass="payment-card" maxWidth="480" spacing="18">
+                <padding><Insets top="30" right="36" bottom="30" left="36"/></padding>
+
+                <Label text="Complete Your Payment" styleClass="card-heading"/>
+                <Label fx:id="bookingIdLabel" styleClass="form-label" wrapText="true"/>
+
+                <!-- Amount -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Amount ($):" styleClass="form-label" prefWidth="120"/>
+                    <TextField fx:id="amountField" promptText="0.00" prefWidth="160"/>
+                </HBox>
+
+                <!-- Payment method selector -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Pay With:" styleClass="form-label" prefWidth="120"/>
+                    <ComboBox fx:id="methodCombo" prefWidth="160"/>
+                </HBox>
+
+                <!-- Visa panel -->
+                <VBox fx:id="visaBox" spacing="10">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Card Number:" styleClass="form-label" prefWidth="120"/>
+                        <TextField fx:id="cardNumberField" promptText="xxxx-xxxx-xxxx-xxxx"
+                                   prefWidth="220"/>
+                    </HBox>
+                </VBox>
+
+                <!-- PayPal panel -->
+                <VBox fx:id="paypalBox" spacing="10">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="PayPal Email:" styleClass="form-label" prefWidth="120"/>
+                        <TextField fx:id="paypalEmailField" promptText="you@example.com"
+                                   prefWidth="220"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Wallet panel -->
+                <VBox fx:id="walletBox" spacing="10">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Wallet Balance ($):" styleClass="form-label" prefWidth="120"/>
+                        <TextField fx:id="walletBalanceField" promptText="e.g. 250.00"
+                                   prefWidth="160"/>
+                    </HBox>
+                </VBox>
+
+                <Button text="💸  Pay Now" onAction="#handlePay"
+                        styleClass="primary-btn" prefWidth="200" prefHeight="44"/>
+
+                <Label fx:id="paymentStatusLabel" styleClass="result-label" wrapText="true"/>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

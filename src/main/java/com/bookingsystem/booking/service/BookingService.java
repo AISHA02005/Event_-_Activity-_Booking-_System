@@ -217,8 +217,8 @@ public class BookingService {
     }
 
 
-    public List<String> getAvailableSeats(String eventId, List<String> allSeats) {
-        return repository.getAvailableSeats(eventId, allSeats);
+    public List<String> getAvailableSeats(String eventId) {
+        return repository.getAvailableSeats(eventId);
     }
 
 

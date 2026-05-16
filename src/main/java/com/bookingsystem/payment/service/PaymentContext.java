@@ -10,7 +10,7 @@ public class PaymentContext {
         this.strategy = strategy;
     }
 
-    public void executePayment(double amount) {
+    public boolean executePayment(double amount) {
 
         if (strategy == null) {
             System.out.println("Please select payment method!");
@@ -18,5 +18,7 @@ public class PaymentContext {
         } else {
             strategy.pay(amount);
         }
+
+        return false;
     }
 }
